@@ -4,53 +4,58 @@ The key to load balancing is using the hash value of a client's IP address or a 
 The hash function is typically designed so that the data is evenly distributed across the servers, ensuring that no single server is overloaded.
 Write a program of a load balancing system*/
 
-#include<iostream>
+
+#include <iostream>
 using namespace std;
 
 int main() {
-    int N, R;  // N = servers, R = requests
+    int N, R; // N = servers, R = requests
     char ch;
-
-    cout<<"Name: Ishwari Mulye PRN: B24CE1107\n\n\n";
-    cout << "         LOAD BALANCING SYSYEM\n";
-    
+    cout<<"Name: Ishwari Mulye PRN: B24CE1107\n\n";
+     cout << "         LOAD BALANCING SYSYEM\n";
 
     do {
         cout << "\nEnter number of servers: ";
         cin >> N;
 
+       
+        int* serv_id = new int[N];
+
         cout << "Enter number of requests: ";
         cin >> R;
 
-        // Dynamic allocation
         int* req_id = new int[R];
-        int* serv_id = new int[R];
 
         cout << "Enter " << R << " request IDs:\n";
         for (int i = 0; i < R; i++) {
             cin >> req_id[i];
         }
 
-        // Assign requests to servers
+        
         for (int i = 0; i < R; i++) {
-            serv_id[i] = req_id[i] % N;
+            serv_id[i] = req_id[i] % N;  
         }
 
         // Output table
+        cout << "\nLoad Balancing Summary\n";
+        cout << "\nThe requests are assigned to following servers:\n";
         cout << "\n=================================\n";
-        cout << " Request ID\t|\tServer\n";
+        cout << "Request ID\t|\tServer\n";
         cout << "=================================\n";
+
         for (int i = 0; i < R; i++) {
-            cout << "   " << req_id[i] << "\t\t|\tServer-" << serv_id[i] << "\n";
+            cout << " " << req_id[i] << "\t\t|\tServer-" << serv_id[i] << "\n";
         }
+
         cout << "=================================\n";
 
-        // Free memory
-        delete[] req_id;
-        delete[] serv_id;
-
+        
         cout << "\nDo you want to check again? (y/n): ";
         cin >> ch;
+
+        // Free dynamically allocated memory
+        delete[] serv_id;
+        delete[] req_id;
 
     } while (ch == 'y' || ch == 'Y');
 
