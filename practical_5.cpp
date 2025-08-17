@@ -4,7 +4,6 @@ The key to load balancing is using the hash value of a client's IP address or a 
 The hash function is typically designed so that the data is evenly distributed across the servers, ensuring that no single server is overloaded.
 Write a program of a load balancing system*/
 
-
 #include <iostream>
 using namespace std;
 
@@ -17,21 +16,14 @@ int main() {
     do {
         cout << "\nEnter number of servers: ";
         cin >> N;
-
-       
         int* serv_id = new int[N];
-
         cout << "Enter number of requests: ";
         cin >> R;
-
         int* req_id = new int[R];
-
         cout << "Enter " << R << " request IDs:\n";
         for (int i = 0; i < R; i++) {
             cin >> req_id[i];
         }
-
-        
         for (int i = 0; i < R; i++) {
             serv_id[i] = req_id[i] % N;  
         }
@@ -46,10 +38,7 @@ int main() {
         for (int i = 0; i < R; i++) {
             cout << " " << req_id[i] << "\t\t|\tServer-" << serv_id[i] << "\n";
         }
-
         cout << "=================================\n";
-
-        
         cout << "\nDo you want to check again? (y/n): ";
         cin >> ch;
 
