@@ -1,0 +1,102 @@
+#include <iostream>
+using namespace std;
+
+class parenthesis_checker {
+    char stack[100];
+    int top = -1;
+
+public:
+    int N = 100;  
+    char x;
+
+    bool isFull();
+    bool isEmpty();
+    void push(char x);
+    char pop();
+    char peek();
+    bool isBalanced(char exp[], int n);
+    void displayStack();
+};
+
+bool parenthesis_checker::isFull() {
+    return (top == N - 1);
+}
+
+bool parenthesis_checker::isEmpty() {
+    return (top == -1);
+}
+
+void parenthesis_checker::push(char x) {
+    if (isFull())
+        cout << "Stack is full!" << endl;
+    else {
+        top++;
+        stack[top] = x;
+        cout << "Pushed: " << x << endl;
+    }
+}
+
+char parenthesis_checker::pop() {
+    if (isEmpty())
+        return '\0';
+    else {
+        x = stack[top];
+        top--;
+        cout << "Popped: " << x << endl;
+        return x;
+    }
+}
+
+char parenthesis_checker::peek() {
+    if (!isEmpty())
+        return stack[top];
+    else
+        return '\0';
+}
+
+bool parenthesis_checker::isBalanced(char exp[], int n) {
+    for (int i = 0; i < n; i++) {
+        char ch = exp[i];
+
+        if (ch == '{' || ch == '[' || ch == '(')
+            push(ch);
+
+        else if (ch == '}' || ch == ']' || ch == ')') {
+            if (isEmpty())
+                return false;
+
+            x = peek();
+
+            if ((ch == '}' && x == '{') ||
+                (ch == ')' && x == '(') ||
+                (ch == ']' && x == '['))
+                pop();
+            else
+                return false;
+        }
+    }
+    return isEmpty();
+}
+
+int main() {
+    parenthesis_checker s;
+    char exp[100];
+
+    cout << "Enter expression: ";
+    cin.getline(exp, 100); // allows spaces
+
+    // User-defined length calculation
+    int n = 0;
+    while (exp[n] != '\0') {
+        n++;
+    }
+
+    cout << "Length of expression (calculated): " << n << endl;
+
+    if (s.isBalanced(exp, n))
+        cout << "Expression is WELL PARENTHESIZED." << endl;
+    else
+        cout << "Expression is NOT WELL PARENTHESIZED." << endl;
+
+    return 0;
+}
